@@ -1,5 +1,4 @@
 import java.text.DecimalFormat;
-import java.text.Format;
 
 public class Book {
     //Create a Book class that allows for Book title, author, description, price and isInStock variables
@@ -13,20 +12,24 @@ public class Book {
     private String description;
     private double price;
     private String isInStock;
-    public Book(String bookTitle,String author, String description, double price, String isInStock){
+    private int amount;
+    public Book(String bookTitle,String author, String description, double price, String isInStock, int amount){
 super();
 this.bookTitle = bookTitle;
 this.author =author;
 this.description = description;
 this.price = price;
 this.isInStock = isInStock;
+this.amount = amount;
     }
 public String getDisplayText(){
     return  "Book Title:         " + getBookTitle() + "\n" +
             "Author:             " + getAuthor() + "\n" +
             "Description:        " + getDescription() + "\n" +
             "In Stock:           " + getIsInStock() + "\n" +
-            "Price:              " + this.getFormattedPrice(getPrice()) + "\n";
+            "Amount:             " + getAmount() + "\n" +
+            "Price per book:     " + getPrice() + "\n" +
+            "Price altogether:   " + this.getFormattedPrice(getTotal()) + "\n";
 }
 
     public String getAuthor() {
@@ -36,7 +39,13 @@ public String getDisplayText(){
     public double getPrice() {
         return price;
     }
-
+public double getTotal() {
+        if (getIsInStock().equalsIgnoreCase("yes")) {
+            return price * amount;
+        }else {
+            return 0;
+        }
+}
     public String getBookTitle() {
         return bookTitle;
     }
@@ -71,5 +80,11 @@ public String getDisplayText(){
     public String getFormattedPrice(Double price){
         DecimalFormat df = new DecimalFormat("0.00");
         return df.format(price);
+    }
+    public int getAmount(){
+        return amount;
+    }
+    public void setAmount(int amount){
+        this.amount = amount;
     }
 }
